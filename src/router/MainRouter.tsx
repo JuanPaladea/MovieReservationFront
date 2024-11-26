@@ -17,10 +17,10 @@ const MainRouter = () => {
       <NavBarComponent />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/movie/:id" element={<Movie />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/movie" element={<Movie />} />
         <Route path="/seat-selection" element={<SeatSelection />} />
         <Route path="/admin-user" element={<AdminUser />} />
         <Route path="/user" element={<User />} />
