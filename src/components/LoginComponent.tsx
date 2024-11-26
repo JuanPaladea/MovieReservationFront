@@ -4,13 +4,14 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 interface UserContextType {
+  user: any;
   setUser: (user: any) => void;
 }
 
 const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const LoginComponent = () => {
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
   const { setUser } = useContext(UserContext) as UserContextType;
 
   const handleLogin = async (e: { preventDefault: () => void; }) => {
@@ -19,9 +20,7 @@ const LoginComponent = () => {
       const response = await axios.post(`${BACKEND_URL}/session/login`, credentials);
       const token = response.data.data.token
       localStorage.setItem('token', token);
-      console.log(token)
       const decodedToken = jwtDecode(token);
-      console.log(decodedToken)
       setUser(decodedToken);
     } catch (error) {
       console.error(error);
@@ -53,11 +52,11 @@ const LoginComponent = () => {
                   id="email"
                   name="email"
                   type="email"
-                  value={credentials.username}
-                  onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+                  value={credentials.email}
+                  onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
                   required
                   autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                 />
               </div>
             </div>
@@ -82,7 +81,7 @@ const LoginComponent = () => {
                   onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
                   required
                   autoComplete="current-password"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                 />
               </div>
             </div>

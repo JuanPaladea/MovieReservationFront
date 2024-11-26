@@ -17,7 +17,7 @@ const MoviesComponent = ({ movies }: MoviesComponentProps) => {
         </div>
         <div className="flex flex-wrap -m-4">
           {movies.map((movie) => (
-            <Link to={`movie/${movie.movie_id}`} className="xl:w-1/4 md:w-1/2 p-4">
+            <Link to={`movie/${movie.movie_id}`} key={movie.movie_id} className="xl:w-1/4 md:w-1/2 p-4">
               <div className="bg-gray-100 p-6 rounded-lg">
                 <img className="h-100 rounded w-full object-cover object-center mb-6" src={movie.thumbnails} alt={movie.title + ' poster'} />
                 <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font"> {movie.genre} </h3>
