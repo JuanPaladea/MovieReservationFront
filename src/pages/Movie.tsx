@@ -15,7 +15,7 @@ interface MovieType {
   thumbnails: string;
 }
 
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL
+const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const Movie = () => {
   const { id } = useParams();
