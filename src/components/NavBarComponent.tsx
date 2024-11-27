@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 interface UserContextType {
   user: any;
@@ -9,10 +10,13 @@ interface UserContextType {
 
 const NavBarComponent = () => {
   const { user, setUser } = useContext(UserContext) as UserContextType;
+  let navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setUser(null);
+    toast.success('Logged out successfully');
+    navigate('/');
   }
   
   return (

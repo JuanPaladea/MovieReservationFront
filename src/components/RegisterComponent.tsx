@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const RegisterComponent = () => {
   return (
     <>
@@ -95,9 +97,9 @@ const RegisterComponent = () => {
 
           <p className="mt-10 text-center text-sm/6 text-gray-500">
             Already a member?{' '}
-            <a href="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
+            <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
               Sign-in
-            </a>
+            </Link>
           </p>
         </div>
       </div>

@@ -4,6 +4,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import SpinnerComponent from "./SpinnerComponent";
+import toast from "react-hot-toast";
 
 const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
@@ -17,13 +18,15 @@ const LoginComponent = () => {
     try {
       e.preventDefault();
       setLoading(true);
-      const response = await axios.post(`${BACKEND_URL}/session/login`, credentials);
+      const response = await axios.post(`${BACKEND_URL}/session/login`, credentials, { withCredentials: true });
       const token = response.data.data.token
       localStorage.setItem('token', token);
       const decodedToken = jwtDecode(token);
       setUser(decodedToken);
+      toast.success('Logged in successfully');
       navigate('/');
     } catch (error) {
+      toast.error('Failed to login');
       console.error(error);
     } finally {
       setLoading(false);

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 interface MoviesComponentProps {
-  //Movies is an array of movies
   movies: any[];
 }
 
