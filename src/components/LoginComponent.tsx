@@ -2,33 +2,40 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-
-interface UserContextType {
-  user: any;
-  setUser: (user: any) => void;
-}
+import { useNavigate } from "react-router-dom";
+import SpinnerComponent from "./SpinnerComponent";
 
 const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const LoginComponent = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
-  const { setUser } = useContext(UserContext) as UserContextType;
+  const { setUser } = useContext(UserContext) as any
+  const [loading, setLoading] = useState(false);
+  let navigate = useNavigate();
 
   const handleLogin = async (e: { preventDefault: () => void; }) => {
     try {
       e.preventDefault();
+      setLoading(true);
       const response = await axios.post(`${BACKEND_URL}/session/login`, credentials);
       const token = response.data.data.token
       localStorage.setItem('token', token);
       const decodedToken = jwtDecode(token);
       setUser(decodedToken);
+      navigate('/');
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
+      setCredentials({ email: '', password: '' });      
     }
   }
 
   return (
     <>
+      { loading ? (
+        <SpinnerComponent />
+      ) : (
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -66,11 +73,6 @@ const LoginComponent = () => {
                 <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
                   Password
                 </label>
-                <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                    Forgot password?
-                  </a>
-                </div>
               </div>
               <div className="mt-2">
                 <input
@@ -104,6 +106,7 @@ const LoginComponent = () => {
           </p>
         </div>
       </div>
+      )}
     </>
   )
 }

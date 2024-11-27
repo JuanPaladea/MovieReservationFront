@@ -3,6 +3,7 @@ import MovieComponent from "../components/MovieComponent"
 import UpcomingShowtimesComponent from "../components/UpcomingShowtimesComponent";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import SpinnerComponent from "../components/SpinnerComponent";
 
 interface MovieType {
   movie_id: number;
@@ -38,7 +39,7 @@ const Movie = () => {
       { movie ? (
         <MovieComponent movie={movie}/>
       ) : (
-        <div>Loading...</div>
+        <SpinnerComponent />
       )}
       <UpcomingShowtimesComponent />
     </>
