@@ -35,6 +35,7 @@ const EditMovieFormComponent = ({ movie }: any) => {
     <div className="mt-10 sm:mx-auto lg:w-1/2 px-5">
       { loading && <SpinnerComponent />}
       <form action="#" method="PUT" className="space-y-6">
+        <h1 className="text-2xl font-semibold text-gray-900">Edit Movie</h1>
         <div>
           <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
             Title

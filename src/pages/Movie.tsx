@@ -37,11 +37,13 @@ const Movie = () => {
   return (
     <>
       { movie ? (
-        <MovieComponent movie={movie}/>
+        <>
+          <MovieComponent movie={movie}/>
+          <UpcomingShowtimesComponent movieId={movie.movie_id} />
+        </>
       ) : (
         <SpinnerComponent />
       )}
-      <UpcomingShowtimesComponent />
     </>
   )
 }

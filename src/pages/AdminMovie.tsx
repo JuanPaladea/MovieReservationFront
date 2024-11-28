@@ -6,6 +6,8 @@ import SpinnerComponent from "../components/SpinnerComponent";
 import EditMovieFormComponent from "../components/EditMovieFormComponent";
 import { UserContext } from "../context/UserContext";
 import ErrorComponent from "../components/ErrorComponent";
+import AddShowtimeFormComponent from "../components/AddShowtimeFormComponent";
+import UpcomingShowtimesComponent from "../components/UpcomingShowtimesComponent";
 
 interface MovieType {
   movie_id: number;
@@ -45,6 +47,8 @@ const AdminMovie = () => {
             <>
               <MovieComponent movie={movie} />
               <EditMovieFormComponent movie={movie} />
+              <AddShowtimeFormComponent movieId={movie.movie_id} />
+              <UpcomingShowtimesComponent movieId={movie.movie_id} />
             </>
           ) : (
             <SpinnerComponent />

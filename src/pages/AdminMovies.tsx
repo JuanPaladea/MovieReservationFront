@@ -11,7 +11,6 @@ const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 const AdminMovies = () => {
   const [movies, setMovies] = useState(null);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
   const { user } = useContext(UserContext)
   // const [size , setSize] = useState(8);
 
