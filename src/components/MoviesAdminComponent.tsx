@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import AddMovieForm from "./AddMovieForm";
+import AddMovieForm from "./AddMovieFormComponent";
 import axios from "axios";
 import toast from "react-hot-toast";
 import SpinnerComponent from "./SpinnerComponent";

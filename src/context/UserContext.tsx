@@ -1,5 +1,7 @@
-import { jwtDecode } from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
+import axios from "axios";
+
+const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 export const UserContext = createContext<{ user: any, setUser: React.Dispatch<React.SetStateAction<any>> | null }>({ user: null, setUser: null })
 
@@ -7,16 +9,20 @@ export const UserProvider = ({children}: { children: React.ReactNode }) => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
+    const fetchUser = async () => {
       try {
-        const decodedToken = jwtDecode(token);
-        setUser(decodedToken as any);
+        const response = await axios.get(`${BACKEND_URL}/session/user`, { withCredentials: true })
+        if (response.status === 200) {
+          setUser(response.data.data.user)
+        } else {
+          setUser(null)
+        }
       } catch (error) {
-        console.error(error);
-        localStorage.removeItem('token');
+        setUser(null)
       }
     }
+
+    fetchUser()
   }, [])
 
   return (

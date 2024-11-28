@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../context/UserContext";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import SpinnerComponent from "./SpinnerComponent";
 import toast from "react-hot-toast";
+import Cookies from 'js-cookie';
+
+import { UserContext } from "../context/UserContext";
+import SpinnerComponent from "./SpinnerComponent";
 
 const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
@@ -20,7 +22,6 @@ const LoginComponent = () => {
       setLoading(true);
       const response = await axios.post(`${BACKEND_URL}/session/login`, credentials, { withCredentials: true });
       const token = response.data.data.token
-      localStorage.setItem('token', token);
       const decodedToken = jwtDecode(token);
       setUser(decodedToken);
       toast.success('Logged in successfully');
@@ -85,7 +86,7 @@ const LoginComponent = () => {
                   value={credentials.password}
                   onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
                   required
-                  autoComplete="current-password"
+                  autoComplete="password"
                   className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                 />
               </div>

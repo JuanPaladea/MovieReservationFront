@@ -27,7 +27,7 @@ const AddMovieForm = () => {
   }
 
   return (
-    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <div className="mt-10 sm:mx-auto lg:w-1/2 px-5">
       { loading && <SpinnerComponent />}
       <form action="#" method="POST" className="space-y-6">
         <div>

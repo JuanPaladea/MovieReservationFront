@@ -2,21 +2,35 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 interface UserContextType {
   user: any;
   setUser: (user: any) => void;
 }
 
+const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+
 const NavBarComponent = () => {
   const { user, setUser } = useContext(UserContext) as UserContextType;
   let navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
-    toast.success('Logged out successfully');
-    navigate('/');
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(`${BACKEND_URL}/session/logout`, {}, { withCredentials: true });
+      if (response.status === 200) {
+        Cookies.remove('token');
+        setUser(null);
+        toast.success('Logged out successfully');
+        navigate('/');
+      } else {
+        toast.error('Failed to logout');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to logout');
+    }
   }
   
   return (

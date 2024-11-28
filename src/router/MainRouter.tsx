@@ -11,6 +11,8 @@ import User from "../pages/User";
 import Error from "../pages/Error";
 import { Toaster } from "react-hot-toast";
 import AdminMovies from "../pages/AdminMovies";
+import AdminMovie from "../pages/AdminMovie";
+import AdminHalls from "../pages/AdminHalls";
 
 const MainRouter = () => {
   return (
@@ -26,6 +28,8 @@ const MainRouter = () => {
         <Route path="/seat-selection" element={<SeatSelection />} />
         <Route path="/user" element={<User />} />
         <Route path="/admin-movies" element={<AdminMovies />} />
+        <Route path="/admin-movies/movie/:id" element={<AdminMovie />} />
+        <Route path="/admin-halls" element={<AdminHalls />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <FooterComponent />
