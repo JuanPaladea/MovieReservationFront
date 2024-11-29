@@ -13,6 +13,7 @@ import { Toaster } from "react-hot-toast";
 import AdminMovies from "../pages/AdminMovies";
 import AdminMovie from "../pages/AdminMovie";
 import AdminHalls from "../pages/AdminHalls";
+import Showtime from "../pages/Showtime";
 
 const MainRouter = () => {
   return (
@@ -22,6 +23,7 @@ const MainRouter = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movie/:id" element={<Movie />} />
+        <Route path="/showtime/:id" element={<Showtime />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/contact" element={<Contact />} />

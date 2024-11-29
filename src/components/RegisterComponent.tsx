@@ -1,8 +1,52 @@
-import { Link } from "react-router-dom"
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom"
+import { UserContext } from "../context/UserContext";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import toast from "react-hot-toast";
+import SpinnerComponent from "./SpinnerComponent";
+
+const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const RegisterComponent = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+
+  const { setUser } = useContext(UserContext) as any
+  const [loading, setLoading] = useState(false);
+  let navigate = useNavigate();
+
+  const handleRegister = async (e: { preventDefault: () => void; }) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+
+      if (password !== password2) {
+        toast.error('Passwords do not match');
+        return;
+      }
+
+      const response = await axios.post(`${BACKEND_URL}/session/register`, { username, email, password }, { withCredentials : true });
+      const token = response.data.data.token
+      const decodedToken = jwtDecode(token);
+      setUser(decodedToken);
+      toast.success('Registered successfully');
+      navigate('/');
+    } catch (error) {
+      toast.error('Failed to register');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <>
+      { loading ? (
+        <SpinnerComponent />
+      ) : (
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -27,8 +71,10 @@ const RegisterComponent = () => {
                   name="username"
                   type="text"
                   required
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   autoComplete="username"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                 />
               </div>
             </div>
@@ -42,9 +88,11 @@ const RegisterComponent = () => {
                   id="email"
                   name="email"
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                 />
               </div>
             </div>
@@ -61,8 +109,10 @@ const RegisterComponent = () => {
                   name="password"
                   type="password"
                   required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   autoComplete="current-password"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                 />
               </div>
             </div>
@@ -78,16 +128,21 @@ const RegisterComponent = () => {
                   id="password2"
                   name="password2"
                   type="password"
+                  value={password2}
+                  onChange={(e) => setPassword2(e.target.value)}
                   required
                   autoComplete="current-password"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                 />
               </div>
+              {password2.length > 0 && password !== password2 && (
+                <p className="text-red-500 text-xs/6">Passwords do not match</p>
+              )}
             </div>
 
             <div>
               <button
-                type="submit"
+                onClick={handleRegister}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Register
@@ -103,6 +158,7 @@ const RegisterComponent = () => {
           </p>
         </div>
       </div>
+      )}
     </>
   )
 }

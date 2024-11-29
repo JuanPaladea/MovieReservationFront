@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import SpinnerComponent from "./SpinnerComponent";
+import { Link } from "react-router-dom";
 
 const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
@@ -28,7 +29,7 @@ const UpcomingShowtimesComponent = ({ movieId }: any) => {
 
         <div className="flex flex-wrap -m-2">  
           { showtimes ? showtimes.map((showtime: any) => (
-            <div className="p-2 lg:w-1/4 md:w-1/2 w-full">
+            <Link to={`/showtime/${showtime.showtime_id}`} className="p-2 lg:w-1/4 md:w-1/2 w-full">
               <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
                 <div className="flex-grow">
                   <h2 className="text-gray-900 title-font font-medium"> {new Date(showtime.show_date).toLocaleDateString()} </h2>
@@ -36,7 +37,7 @@ const UpcomingShowtimesComponent = ({ movieId }: any) => {
                   <p className="text-gray-500"> Hall: {showtime.hall_id} </p>
                 </div>
               </div>
-            </div>
+            </Link>
           )) : <SpinnerComponent />
           }
         </div>
