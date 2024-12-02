@@ -33,7 +33,7 @@ const SeatSelectionComponent = ({ showtime }: any) => {
         setLoading(true);
         const response = await axios.get(`${BACKEND_URL}/seats/showtime/${showtime.showtime_id}`);
         setSeats(response.data.data);
-      } catch (error) {
+      } catch (error: any) {
         console.error(error);
       } finally {
         setLoading(false);
@@ -75,7 +75,13 @@ const SeatSelectionComponent = ({ showtime }: any) => {
       await axios.post(`${BACKEND_URL}/reservations`, { seatIds }, { withCredentials: true });
       toast.success("Seats reserved successfully");
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
+      // If the error is due to the user not being logged in, redirect to login page
+      if (error.response.status === 401) {
+        toast.error("You need to be logged in to reserve seats");
+        navigate("/login");
+        return
+      }
       toast.error("Failed to reserve seats");
       console.error(error);
     } finally {
@@ -86,6 +92,12 @@ const SeatSelectionComponent = ({ showtime }: any) => {
   return (
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-12 mx-auto">
+        <div className="w-1/2 lg:pl-10 lg:py-6 mb-6 lg:mb-0 mx-auto">
+          <div className="flex border-t border-gray-200 py-2">
+            <span className="text-gray-500">Showtime</span>
+            <span className="ml-auto text-gray-900"> {showtime.show_date} | {showtime.show_time} </span>
+          </div>
+        </div>
         <div className="flex flex-col items-center">
           <h2 className="text-2xl font-bold mb-4 py-12">Select Your Seats</h2>
           {loading ? (

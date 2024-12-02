@@ -11,46 +11,58 @@ const PaginationComponent = ({ page, setPage }: { page: number, setPage: any}) =
 
   return (
     <nav className="container px-5 py-12 mx-auto">
-      <ul className="list-style-none flex ">
+      <ul className="list-style-none flex">
         <li>
-          <a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-surface transition duration-300 hover:bg-neutral-100 focus:bg-neutral-100 focus:text-primary-700 focus:outline-none focus:ring-0 active:bg-neutral-100 active:text-primary-700"
-            onClick={handlePrev}>Previous</a>
+          <button
+            className={`relative block rounded px-3 py-1.5 text-sm transition duration-300 ${
+              page === 1
+                ? "cursor-not-allowed opacity-50"
+                : "hover:bg-neutral-100 text-surface"
+            }`}
+            onClick={handlePrev}
+            disabled={page === 1}
+          >
+            Previous
+          </button>
         </li>
-        { page >= 2 && (
+        {page > 1 && (
           <li>
             <a
-              className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-surface transition duration-300 hover:bg-neutral-100 focus:bg-neutral-100 focus:text-primary-700 focus:outline-none active:bg-neutral-100 active:text-primary-700"
+              className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-surface transition duration-300 hover:bg-neutral-100"
               onClick={() => setPage(page - 1)}
-              >{page - 1}</a>
+            >
+              {page - 1}
+            </a>
           </li>
         )}
         <li aria-current="page">
           <a
-            className="border relative block rounded bg-transparent px-3 py-1.5 text-sm text-surface transition duration-300 hover:bg-neutral-100 focus:bg-neutral-100 focus:text-primary-700 focus:outline-none active:bg-neutral-100 active:text-primary-700"
-            onClick={() => setPage(page)}
-            >{page}</a>
+            className="border relative block rounded bg-neutral-200 px-3 py-1.5 text-sm text-primary-700"
+          >
+            {page}
+          </a>
         </li>
         <li>
           <a
-            className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-surface transition duration-300 hover:bg-neutral-100 focus:bg-neutral-100 focus:text-primary-700 focus:outline-none active:bg-neutral-100 active:text-primary-700"
+            className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-surface transition duration-300 hover:bg-neutral-100"
             onClick={() => setPage(page + 1)}
-            >{page + 1}</a>
+          >
+            {page + 1}
+          </a>
         </li>
         <li>
-          <a
-            className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-surface transition duration-300 hover:bg-neutral-100 focus:bg-neutral-100 focus:text-primary-700 focus:outline-none active:bg-neutral-100 active:text-primary-700"
-            onClick={() => setPage(page + 2)}
-            >{page + 2}</a>
-        </li>
-        <li>
-          <a
-            className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-surface transition duration-300 hover:bg-neutral-100 focus:bg-neutral-100 focus:text-primary-700 focus:outline-none active:bg-neutral-100 active:text-primary-700"
+          <button
+            className={`relative block rounded px-3 py-1.5 text-sm transition duration-300 ${
+              "hover:bg-neutral-100 text-surface"
+            }`}
             onClick={handleNext}
-            >Next</a>
+          >
+            Next
+          </button>
         </li>
       </ul>
     </nav>
-  )
-}
+  );
+};
 
 export default PaginationComponent;

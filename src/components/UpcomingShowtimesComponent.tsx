@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const UpcomingShowtimesComponent = ({ movieId }: any) => {
-  const [showtimes, setShowtimes] = useState([]);
+  const [showtimes, setShowtimes] = useState<any[] | null>(null);
 
   useEffect(() => {
     const fetchShowtimes = async () => {
