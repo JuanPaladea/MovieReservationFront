@@ -13,7 +13,7 @@ const AdminMovies = () => {
   const [movies, setMovies] = useState(null);
   const [page, setPage] = useState(1);
   const { user } = useContext(UserContext)
-  const [size , setSize] = useState(8);
+  const [size] = useState(8);
 
   useEffect(() => {
     const fetchData = async () => {

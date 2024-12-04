@@ -10,7 +10,7 @@ const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 const UpcomingShowtimesComponent = ({ movieId }: any) => {
   const [showtimes, setShowtimes] = useState<null | []>(null);
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState(8);
+  const [size] = useState(8);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
