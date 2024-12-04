@@ -12,28 +12,32 @@ const Home = () => {
   const [movies, setMovies] = useState(null);
   const [page, setPage] = useState(1);
   const [size , setSize] = useState(8);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         const response = await axios.get(`${BACKEND_URL}/movies`, { params: { page, size } })
         if (response.data.data.length === 0) {
           toast('No more movies to show')
           setPage(page - 1)
-          return
         }
         setMovies(response.data.data)
       } catch (error) {
         console.error(error)
         toast.error("Error fetching movies")
-      } 
+      } finally {
+        setLoading(false)
+      }
     }
     fetchData();
-  }, [page])
+  }, [page, size])
 
   return (
     <main>
       <HeroComponent />
+      {loading && <SpinnerComponent />}
       { movies ? (
         <>
           <MoviesComponent movies={movies} />

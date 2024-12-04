@@ -3,25 +3,34 @@ import { useEffect, useState } from "react";
 import SpinnerComponent from "./SpinnerComponent";
 import { Link } from "react-router-dom";
 import PaginationComponent from "./PaginationComponent";
+import toast from "react-hot-toast";
 
 const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const UserReservationsComponent = () => {
-  const [reservations, setReservations] = useState<any[]>([]);
+  const [reservations, setReservations] = useState<null | []>(null);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchReservations = async () => {
       try {
+        setLoading
         const response = await axios.get(`${BACKEND_URL}/reservations/user`, { withCredentials: true, params: { page } });
+        if (response.data.data.length === 0) {
+          toast('No more reservation to show')
+          setPage(page - 1)
+        }
         setReservations(response.data.data);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchReservations();
-  }, []);
+  }, [page]);
 
   return (
     <section className="text-gray-600 body-font">
@@ -30,10 +39,11 @@ const UserReservationsComponent = () => {
           <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Reservations</h1>
         </div>
         <div className="flex flex-wrap -m-2">
+          { loading && <SpinnerComponent /> }
           { reservations ? (
             <>
               {
-              reservations.map((reservation) => (
+              reservations.map((reservation: any) => (
                 <Link to={`/reservation/${reservation.reservation_id}`} className="p-2 lg:w-1/4 md:w-1/2 w-full" key={reservation.reservation_id}>
                   <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
                     <div className="flex-grow">

@@ -11,7 +11,7 @@ const Showtime = () => {
   const { id } = useParams<{ id: string }>();
   const [showtime, setShowtime] = useState<any>(null);
   const [movie, setMovie] = useState<any>(null);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(false); 
 
   useEffect(() => {
     const fetchData = async () => {
