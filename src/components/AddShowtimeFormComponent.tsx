@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import SpinnerComponent from "./SpinnerComponent";
+import { useNavigate } from "react-router-dom";
 
 
 const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
@@ -9,6 +10,7 @@ const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 const AddShowtimeFormComponent = ({ movieId }: any) => {
   const [showtimeData, setShowtimeData] = useState({ movieId: movieId, hallId: '', showDate: '', showTime: '', price: 0 });
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleAddShowtime = async (e: { preventDefault: () => void; }) => {
     try {
@@ -17,7 +19,7 @@ const AddShowtimeFormComponent = ({ movieId }: any) => {
       const response = await axios.post(`${BACKEND_URL}/showtimes`, showtimeData, { withCredentials: true });
       if (response.status === 201) {
         toast.success('Showtime added successfully');
-        window.location.reload();
+        navigate('/dashboard');
       }
     } catch (error) {
       console.error(error);

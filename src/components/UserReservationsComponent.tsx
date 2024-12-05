@@ -16,7 +16,7 @@ const UserReservationsComponent = () => {
     const fetchReservations = async () => {
       try {
         setLoading
-        const response = await axios.get(`${BACKEND_URL}/reservations/user`, { withCredentials: true, params: { page } });
+        const response = await axios.get(`${BACKEND_URL}/reservations/user`, { params: { page }, withCredentials: true });
         if (response.data.data.length === 0) {
           toast('No more reservation to show')
           setPage(page - 1)
