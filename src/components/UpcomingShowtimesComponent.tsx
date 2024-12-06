@@ -11,7 +11,7 @@ const UpcomingShowtimesComponent = ({ movieId }: any) => {
   const [showtimes, setShowtimes] = useState<null | []>(null);
   const [page, setPage] = useState(1);
   const [size] = useState(8);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchShowtimes = async () => {
@@ -41,7 +41,7 @@ const UpcomingShowtimesComponent = ({ movieId }: any) => {
 
         <div className="flex flex-wrap -m-2">  
           { loading && <SpinnerComponent /> }
-          { showtimes ? (
+          { showtimes && (
             <>
              {
                showtimes.map((showtime: any) => (
@@ -58,8 +58,6 @@ const UpcomingShowtimesComponent = ({ movieId }: any) => {
              }
              <PaginationComponent page={page} setPage={setPage} /> 
             </>
-          ) : (
-            <SpinnerComponent />
           )}
         </div>
       </div>

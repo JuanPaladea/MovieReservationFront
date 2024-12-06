@@ -12,7 +12,7 @@ const Home = () => {
   const [movies, setMovies] = useState(null);
   const [page, setPage] = useState(1);
   const [size] = useState(8);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,13 +38,11 @@ const Home = () => {
     <main>
       <HeroComponent />
       {loading && <SpinnerComponent />}
-      { movies ? (
+      { movies && (
         <>
           <MoviesComponent movies={movies} />
           <PaginationComponent page={page} setPage={setPage}/>
         </>
-      ) : (
-        <SpinnerComponent />
       )}
     </main>
   );

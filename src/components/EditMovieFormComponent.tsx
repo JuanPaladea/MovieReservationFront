@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const EditMovieFormComponent = ({ movie }: any) => {
-  // transform to "yyyy-MM-dd".
+  // transform to "dd-mm-yyyy".
   const movieDate = new Date(movie.release_date).toISOString().split('T')[0];
 
   const [movieData, setMovieData] = useState({ title: movie.title , genre: movie.genre, duration: movie.duration, rating: movie.rating, release_date: movieDate, description: movie.description, thumbnails: movie.thumbnails });

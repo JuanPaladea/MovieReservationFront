@@ -10,7 +10,7 @@ const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 const UserReservationsComponent = () => {
   const [reservations, setReservations] = useState<null | []>(null);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchReservations = async () => {
@@ -40,7 +40,7 @@ const UserReservationsComponent = () => {
         </div>
         <div className="flex flex-wrap -m-2">
           { loading && <SpinnerComponent /> }
-          { reservations ? (
+          { reservations && (
             <>
               {
               reservations.map((reservation: any) => (
@@ -56,10 +56,7 @@ const UserReservationsComponent = () => {
               }
               <PaginationComponent page={page} setPage={setPage} />
             </>
-          ) : (
-            <SpinnerComponent />
           )}
-
         </div>
       </div>
     </section>

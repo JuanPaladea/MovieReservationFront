@@ -24,7 +24,7 @@ const SeatSelectionComponent = ({ showtime }: any) => {
   const [seats, setSeats] = useState<seat[]>([]);
   const [selectedSeats, setSelectedSeats] = useState<SelectedSeat[]>([]);
   const [groupedSeats, setGroupedSeats] = useState<Record<number, seat[]>>({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   let navigate = useNavigate();
 
   useEffect(() => {
