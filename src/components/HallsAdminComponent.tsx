@@ -1,6 +1,7 @@
+import { HallType } from "../types/types";
 import AddHallFormComponent from "./AddHallFormComponent"
 
-const HallAdminComponent = ({halls}: any) => {
+const HallAdminComponent = ({halls}: {halls: HallType[]}) => {
   return (
     <div >
       <AddHallFormComponent />

@@ -1,12 +1,13 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+import { BACKEND_URL } from "../utils/utils";
+import type { UserType } from "../types/types";
 
-export const UserContext = createContext<{ user: any, setUser: React.Dispatch<React.SetStateAction<any>> | null }>({ user: null, setUser: null })
+export const UserContext = createContext<{ user: UserType | null, setUser: React.Dispatch<React.SetStateAction<UserType | null>>} | undefined>(undefined)
 
 export const UserProvider = ({children}: { children: React.ReactNode }) => {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState<UserType | null>(null)
 
   useEffect(() => {
     const fetchUser = async () => {

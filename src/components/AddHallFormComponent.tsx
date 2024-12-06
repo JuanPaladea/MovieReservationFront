@@ -1,10 +1,10 @@
 import { useState } from "react";
-import SpinnerComponent from "./SpinnerComponent";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+import SpinnerComponent from "./SpinnerComponent";
+import { BACKEND_URL } from "../utils/utils";
 
 const AddHallFormComponent = () => {
   const navigate = useNavigate();

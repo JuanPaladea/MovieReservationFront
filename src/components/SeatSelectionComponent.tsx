@@ -3,16 +3,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SpinnerComponent from "./SpinnerComponent";
 import toast from "react-hot-toast";
+import { SeatType } from "../types/types";
+import { BACKEND_URL } from "../utils/utils";
 
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
-
-interface seat {
-  seat_id: number;
-  showtime_id: number;
-  row_number: number;
-  seat_number: number;
-  status: string;
-}
 
 interface SelectedSeat {
   seat_id: number;
@@ -21,9 +14,9 @@ interface SelectedSeat {
 }
 
 const SeatSelectionComponent = ({ showtime }: any) => {
-  const [seats, setSeats] = useState<seat[]>([]);
+  const [seats, setSeats] = useState<SeatType[]>([]);
   const [selectedSeats, setSelectedSeats] = useState<SelectedSeat[]>([]);
-  const [groupedSeats, setGroupedSeats] = useState<Record<number, seat[]>>({});
+  const [groupedSeats, setGroupedSeats] = useState<Record<number, SeatType[]>>({});
   const [loading, setLoading] = useState(true);
   let navigate = useNavigate();
 
@@ -45,7 +38,7 @@ const SeatSelectionComponent = ({ showtime }: any) => {
 
   useEffect(() => {
     if (seats.length > 0) {
-      const groupedSeats = seats.reduce((acc: Record<number, seat[]>, seat) => {
+      const groupedSeats = seats.reduce((acc: Record<number, SeatType[]>, seat) => {
         if (!acc[seat.row_number]) {
           acc[seat.row_number] = [];
         }
@@ -56,7 +49,7 @@ const SeatSelectionComponent = ({ showtime }: any) => {
     }
   }, [seats]);
 
-  const toggleSeatSelection = (seat: seat) => {
+  const toggleSeatSelection = (seat: SeatType) => {
     setSelectedSeats((prev) => {
       const isAlreadySelected = prev.some((selectedSeat) => selectedSeat.seat_id === seat.seat_id);
       if (isAlreadySelected) {

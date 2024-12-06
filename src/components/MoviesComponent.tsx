@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
 
-interface MoviesComponentProps {
-  movies: any[];
-}
+import { MovieType } from "../types/types";
 
-const MoviesComponent = ({ movies }: MoviesComponentProps) => {
+const MoviesComponent = ({movies}: {movies: MovieType[]}) => {
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-12 mx-auto">

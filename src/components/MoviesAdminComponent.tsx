@@ -1,17 +1,14 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AddMovieForm from "./AddMovieFormComponent";
 import axios from "axios";
 import toast from "react-hot-toast";
+
+import AddMovieForm from "./AddMovieFormComponent";
 import SpinnerComponent from "./SpinnerComponent";
-import { useState } from "react";
+import { BACKEND_URL } from "../utils/utils";
+import { MovieType } from "../types/types";
 
-interface MoviesComponentProps {
-  movies: any[];
-}
-
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
-
-const MoviesAdminComponent = ({ movies }: MoviesComponentProps) => {
+const MoviesAdminComponent = ({ movies }: {movies: MovieType[]}) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
 

@@ -1,18 +1,19 @@
 import { useContext, useEffect, useState } from "react";
-import MoviesAdminComponent from "../components/MoviesAdminComponent"
 import axios from "axios";
+import toast from "react-hot-toast";
+
 import { UserContext } from "../context/UserContext";
+import MoviesAdminComponent from "../components/MoviesAdminComponent"
 import ErrorComponent from "../components/ErrorComponent";
 import SpinnerComponent from "../components/SpinnerComponent";
-import toast from "react-hot-toast";
 import PaginationComponent from "../components/PaginationComponent";
-
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+import { BACKEND_URL } from "../utils/utils";
+import { MovieType, UserType } from "../types/types";
 
 const AdminMovies = () => {
-  const [movies, setMovies] = useState(null);
+  const [movies, setMovies] = useState<MovieType[] | undefined>(undefined);
   const [page, setPage] = useState(1);
-  const { user } = useContext(UserContext)
+  const { user } = useContext(UserContext) as { user: UserType | null };
   const [size] = useState(8);
 
   useEffect(() => {

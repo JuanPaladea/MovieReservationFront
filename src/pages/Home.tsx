@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+
 import HeroComponent from "../components/HeroComponent";
 import MoviesComponent from "../components/MoviesComponent";
 import PaginationComponent from "../components/PaginationComponent";
-import axios from "axios";
 import SpinnerComponent from "../components/SpinnerComponent";
-import toast from "react-hot-toast";
-
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+import { BACKEND_URL } from "../utils/utils";
+import { MovieType } from "../types/types";
 
 const Home = () => {
-  const [movies, setMovies] = useState(null);
+  const [movies, setMovies] = useState<MovieType[] | undefined>(undefined);
   const [page, setPage] = useState(1);
   const [size] = useState(8);
   const [loading, setLoading] = useState(true);

@@ -6,12 +6,12 @@ import toast from "react-hot-toast";
 
 import { UserContext } from "../context/UserContext";
 import SpinnerComponent from "./SpinnerComponent";
-
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+import { UserType } from "../types/types";
+import { BACKEND_URL } from "../utils/utils";
 
 const LoginComponent = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
-  const { setUser } = useContext(UserContext) as any
+  const [credentials, setCredentials] = useState<{ email: string, password: string }>({ email: '', password: '' });
+  const { setUser } = useContext(UserContext) as { setUser: React.Dispatch<React.SetStateAction<UserType | null>> };
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
 
@@ -22,7 +22,8 @@ const LoginComponent = () => {
       const response = await axios.post(`${BACKEND_URL}/session/login`, credentials, { withCredentials: true });
       const token = response.data.data.token
       const decodedToken = jwtDecode(token);
-      setUser(decodedToken);
+      const user = decodedToken as UserType;
+      setUser(user);
       toast.success('Logged in successfully');
       navigate('/');
     } catch (error) {

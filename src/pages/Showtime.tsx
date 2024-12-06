@@ -1,16 +1,17 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+
 import SpinnerComponent from "../components/SpinnerComponent";
 import MovieComponent from "../components/MovieComponent";
 import SeatSelectionComponent from "../components/SeatSelectionComponent";
-
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+import { BACKEND_URL } from "../utils/utils";
+import type { ShowtimeType, MovieType } from "../types/types";
 
 const Showtime = () => {
   const { id } = useParams<{ id: string }>();
-  const [showtime, setShowtime] = useState<any>(null);
-  const [movie, setMovie] = useState<any>(null);
+  const [showtime, setShowtime] = useState<ShowtimeType | undefined>(undefined);
+  const [movie, setMovie] = useState<MovieType | undefined>(undefined);
   const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
@@ -18,12 +19,10 @@ const Showtime = () => {
       try {
         setLoading(true);
 
-        // Fetch showtime
         const showtimeResponse = await axios.get(`${BACKEND_URL}/showtimes/${id}`);
         const fetchedShowtime = showtimeResponse.data.data;
         setShowtime(fetchedShowtime);
 
-        // Fetch movie based on showtime.movie_id
         const movieResponse = await axios.get(`${BACKEND_URL}/movies/${fetchedShowtime.movie_id}`);
         setMovie(movieResponse.data.data);
       } catch (error) {

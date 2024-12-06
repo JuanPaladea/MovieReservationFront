@@ -1,14 +1,15 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
 import ReservationComponent from "../components/ReservationComponent";
 import SpinnerComponent from "../components/SpinnerComponent";
-import { useParams } from "react-router-dom";
-
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+import { BACKEND_URL } from "../utils/utils";
+import { ReservationType } from "../types/types";
 
 const Reservation = () => {
   const {id} = useParams();
-  const [reservation, setReservation] = useState(null)
+  const [reservation, setReservation] = useState<ReservationType | undefined>(undefined);
 
   useEffect(() => {
     const fetchReservation = async () => {

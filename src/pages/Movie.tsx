@@ -1,26 +1,16 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+
 import MovieComponent from "../components/MovieComponent"
 import UpcomingShowtimesComponent from "../components/UpcomingShowtimesComponent";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import SpinnerComponent from "../components/SpinnerComponent";
-
-interface MovieType {
-  movie_id: number;
-  title: string;
-  genre: string;
-  duration: number;
-  rating: string;
-  release_date: string;
-  description: string;
-  thumbnails: string;
-}
-
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+import { BACKEND_URL } from "../utils/utils";
+import { MovieType } from "../types/types";
 
 const Movie = () => {
   const { id } = useParams();
-  const [movie, setMovie] = useState<MovieType | null>(null);
+  const [movie, setMovie] = useState<MovieType | undefined>(undefined);
 
   useEffect(() => {
     const fetchMovie = async () => {

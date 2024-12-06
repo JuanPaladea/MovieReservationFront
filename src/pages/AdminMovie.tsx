@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
+
 import MovieComponent from "../components/MovieComponent";
 import SpinnerComponent from "../components/SpinnerComponent";
 import EditMovieFormComponent from "../components/EditMovieFormComponent";
@@ -8,24 +9,13 @@ import { UserContext } from "../context/UserContext";
 import ErrorComponent from "../components/ErrorComponent";
 import AddShowtimeFormComponent from "../components/AddShowtimeFormComponent";
 import UpcomingShowtimesComponent from "../components/UpcomingShowtimesComponent";
-
-interface MovieType {
-  movie_id: number;
-  title: string;
-  genre: string;
-  duration: number;
-  rating: string;
-  release_date: string;
-  description: string;
-  thumbnails: string;
-}
-
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+import { BACKEND_URL } from "../utils/utils";
+import { MovieType, UserType } from "../types/types";
 
 const AdminMovie = () => {
   const { id } = useParams();
-  const [movie, setMovie] = useState<MovieType | null>(null);
-  const { user } = useContext(UserContext)
+  const [movie, setMovie] = useState<MovieType | undefined>(undefined);
+  const { user } = useContext(UserContext) as { user: UserType | null };
 
   useEffect(() => {
     const fetchMovie = async () => {

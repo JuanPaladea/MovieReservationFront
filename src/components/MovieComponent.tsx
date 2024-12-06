@@ -1,13 +1,4 @@
-interface MovieType {
-  movie_id: number;
-  title: string;
-  genre: string;
-  duration: number;
-  rating: string;
-  release_date: string;
-  description: string;
-  thumbnails: string;
-}
+import { MovieType } from "../types/types";
 
 const MovieComponent = ({ movie }: { movie: MovieType }) => {
   const movieDate = new Date(movie.release_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day : 'numeric' });

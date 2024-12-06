@@ -1,16 +1,17 @@
 import { useContext, useEffect, useState } from "react"
+import axios from "axios";
+import toast from "react-hot-toast";
+
 import HallAdminComponent from "../components/HallsAdminComponent"
 import { UserContext } from "../context/UserContext"
 import ErrorComponent from "../components/ErrorComponent"
-import axios from "axios";
 import SpinnerComponent from "../components/SpinnerComponent";
-import toast from "react-hot-toast";
-
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+import { BACKEND_URL } from "../utils/utils";
+import { HallType, UserType } from "../types/types";
 
 const AdminHalls = () => {
-  const [halls, setHalls] = useState(null);
-  const { user } = useContext(UserContext)
+  const [halls, setHalls] = useState<HallType[] | undefined>(undefined)
+  const { user } = useContext(UserContext) as { user: UserType | null }
 
   useEffect(() => {
     const fetchData = async () => {

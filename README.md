@@ -1,50 +1,65 @@
-# React + TypeScript + Vite
+# MovieReservationFront
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A front-end application for a movie reservation system, built using React, TypeScript, and Vite. This project is part of a learning exercise to practice modern front-end development principles and tools. Its connected to the backend i developed.
 
-Currently, two official plugins are available:
+## Table of Contents
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Usage](#usage)
+- [Folder Structure](#folder-structure)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Movie Listings**: Display available movies with key details like title, genre, and showtimes.
+- **Reservations**: Book tickets for a selected movie and showtime.
+- **Responsive Design**: Optimized for desktop and mobile devices.
+- **Modern Development**: Utilizes the latest web development tools for speed and scalability.
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Technologies Used
+
+- **React**: Component-based UI library for building dynamic interfaces.
+- **TypeScript**: Type-safe programming to ensure code reliability.
+- **Vite**: Lightning-fast development server and build tool.
+
+---
+
+## Usage
+
+1. View the list of movies on the home page.
+2. Select a movie to see details and available showtimes.
+3. Book tickets for your preferred showtime by filling out the reservation form.
+4. Review your reservation details before confirming.
+
+---
+
+## Folder Structure
+
+```plaintext
+MovieReservationFront/
+├── public/             # Static assets like icons, images, etc.
+├── src/
+│   ├── components/     # Reusable UI components
+│   ├── context/        # User context for managing state
+│   ├── pages/          # Page-specific components
+│   ├── router/         # Application routing configuration
+│   ├── types/          # TypeScript interfaces and types
+│   ├── utils/          # Helper functions
+│   ├── App.tsx         # Main app component
+│   ├── main.tsx        # Application entry point
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Backend Integration
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+This front-end application communicates with a backend service developed to manage movie data and reservations. The backend repository can be found at [MovieReservationBack](https://github.com/JuanPaladea/MovieReservationBack).
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### API Integration
+
+The front end retrieves and manages data through API calls to the backend, including:
+
+- **Fetching Movies**: Retrieves a list of available movies.
+- **Fetching Showtimes**: Retrieves showtimes for selected movies.
+- **Booking Reservations**: Sends reservation data to the backend for processing and storage.

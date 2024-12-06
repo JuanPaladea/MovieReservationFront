@@ -1,14 +1,15 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import SpinnerComponent from "./SpinnerComponent";
 import { Link } from "react-router-dom";
-import PaginationComponent from "./PaginationComponent";
 import toast from "react-hot-toast";
+import axios from "axios";
 
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+import SpinnerComponent from "./SpinnerComponent";
+import PaginationComponent from "./PaginationComponent";
+import { BACKEND_URL } from "../utils/utils";
+import { ReservationType } from "../types/types";
 
 const UserReservationsComponent = () => {
-  const [reservations, setReservations] = useState<null | []>(null);
+  const [reservations, setReservations] = useState<ReservationType[] | undefined>(undefined);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 

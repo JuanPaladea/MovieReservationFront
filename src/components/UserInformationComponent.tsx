@@ -1,4 +1,6 @@
-const UserInformationComponent = ({user}: {user: any}) => {
+import { UserType } from "../types/types"
+
+const UserInformationComponent = ({user}: {user: UserType}) => {
 
   return (
     <div className="container px-5 py-24 mx-auto">

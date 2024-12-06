@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import SpinnerComponent from "./SpinnerComponent";
 
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+import SpinnerComponent from "./SpinnerComponent";
+import { BACKEND_URL } from "../utils/utils";
 
 const AddMovieForm = () => {
   const [movieData, setMovieData] = useState({ title: '' , genre: '', duration: 0, rating: '', release_date: '', description: '', thumbnails: '' });

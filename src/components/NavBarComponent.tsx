@@ -4,16 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 import axios from "axios";
-
-interface UserContextType {
-  user: any;
-  setUser: (user: any) => void;
-}
-
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+import { BACKEND_URL } from "../utils/utils";
+import { UserType } from "../types/types";
 
 const NavBarComponent = () => {
-  const { user, setUser } = useContext(UserContext) as UserContextType;
+  const { user, setUser } = useContext(UserContext) as { user: UserType | null, setUser: React.Dispatch<React.SetStateAction<UserType | null>>}
   let navigate = useNavigate();
 
   const handleLogout = async () => {

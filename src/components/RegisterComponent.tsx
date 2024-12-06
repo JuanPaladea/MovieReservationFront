@@ -5,16 +5,17 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import toast from "react-hot-toast";
 import SpinnerComponent from "./SpinnerComponent";
+import { UserType } from "../types/types";
 
 const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const RegisterComponent = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [password2, setPassword2] = useState('');
+  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [password2, setPassword2] = useState<string>('');
 
-  const { setUser } = useContext(UserContext) as any
+  const { setUser } = useContext(UserContext) as { setUser: React.Dispatch<React.SetStateAction<UserType | null>> };
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
 
@@ -31,7 +32,8 @@ const RegisterComponent = () => {
       const response = await axios.post(`${BACKEND_URL}/session/register`, { username, email, password }, { withCredentials : true });
       const token = response.data.data.token
       const decodedToken = jwtDecode(token);
-      setUser(decodedToken);
+      const user = decodedToken as UserType;
+      setUser(user);
       toast.success('Registered successfully');
       navigate('/');
     } catch (error) {
