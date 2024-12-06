@@ -12,7 +12,7 @@ const AddHallFormComponent = () => {
   const [hallData, setHallData] = useState({
     name: '',
     total_rows: 0,
-    seat_per_rows: 0
+    seats_per_row: 0
   });
 
   const handleAddHall = async (e: { preventDefault: () => void; }) => {
@@ -22,14 +22,14 @@ const AddHallFormComponent = () => {
       const response = await axios.post(`${BACKEND_URL}/halls`, hallData, { withCredentials: true });
       if (response.status === 201) {
         toast.success('Hall added successfully');
-        navigate('/admin-halls');
+        navigate('/user');
       }
     } catch (error) {
       console.error(error);
       toast.error('Failed to add hall');
     } finally {
       setLoading(false);
-      setHallData({ name: '', total_rows: 0, seat_per_rows: 0 });
+      setHallData({ name: '', total_rows: 0, seats_per_row: 0 });
     }
   }
 
@@ -82,8 +82,8 @@ const AddHallFormComponent = () => {
               name="duration"
               type="number"
               required
-              value={hallData.seat_per_rows}
-              onChange={(e) => setHallData({ ...hallData, seat_per_rows: parseInt(e.target.value) })}
+              value={hallData.seats_per_row}
+              onChange={(e) => setHallData({ ...hallData, seats_per_row: parseInt(e.target.value) })}
               className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
             />
           </div>
