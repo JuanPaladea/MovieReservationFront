@@ -8,7 +8,7 @@ import { BACKEND_URL } from "../utils/utils";
 import { MovieType } from "../types/types";
 
 const EditMovieFormComponent = ({ movie }: any) => {
-  const movieDate = new Date(movie.release_date).toISOString().split('T')[0];
+  const movieDate = new Date(movie.release_date).toLocaleDateString('en-GB');
   const [movieData, setMovieData] = useState<MovieType>({
     movie_id: movie.movie_id,
     title: movie.title,

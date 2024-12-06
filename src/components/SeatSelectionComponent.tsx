@@ -88,7 +88,7 @@ const SeatSelectionComponent = ({ showtime }: any) => {
         <div className="w-1/2 lg:pl-10 lg:py-6 mb-6 lg:mb-0 mx-auto">
           <div className="flex border-t border-gray-200 py-2">
             <span className="text-gray-500">Showtime</span>
-            <span className="ml-auto text-gray-900"> {showtime.show_date} | {showtime.show_time} </span>
+            <span className="ml-auto text-gray-900"> {new Date(showtime.show_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })} | {showtime.show_time}</span>
           </div>
         </div>
         <div className="flex flex-col items-center">

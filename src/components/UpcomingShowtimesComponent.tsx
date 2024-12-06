@@ -49,7 +49,7 @@ const UpcomingShowtimesComponent = ({ movieId }: any) => {
                  <Link to={`/showtime/${showtime.showtime_id}`} className="p-2 lg:w-1/4 md:w-1/2 w-full">
                    <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
                      <div className="flex-grow">
-                       <h2 className="text-gray-900 title-font font-medium"> {new Date(showtime.show_date).toLocaleDateString()} </h2>
+                       <h2 className="text-gray-900 title-font font-medium"> {new Date(showtime.show_date).toLocaleDateString('en-GB')} </h2>
                        <p className="text-gray-700"> {showtime.show_time} </p>
                        <p className="text-gray-500"> Hall: {showtime.hall_id} </p>
                      </div>
