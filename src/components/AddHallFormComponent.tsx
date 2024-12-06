@@ -2,10 +2,12 @@ import { useState } from "react";
 import SpinnerComponent from "./SpinnerComponent";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const AddHallFormComponent = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [hallData, setHallData] = useState({
     name: '',
@@ -20,6 +22,7 @@ const AddHallFormComponent = () => {
       const response = await axios.post(`${BACKEND_URL}/halls`, hallData, { withCredentials: true });
       if (response.status === 201) {
         toast.success('Hall added successfully');
+        navigate('/admin-halls');
       }
     } catch (error) {
       console.error(error);
@@ -27,7 +30,6 @@ const AddHallFormComponent = () => {
     } finally {
       setLoading(false);
       setHallData({ name: '', total_rows: 0, seat_per_rows: 0 });
-      window.location.reload();      
     }
   }
 
