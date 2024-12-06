@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import SpinnerComponent from "./SpinnerComponent";
 import { BACKEND_URL } from "../utils/utils";
 
-const AddShowtimeFormComponent = ({ movieId }: {movieId: String}) => {
+const AddShowtimeFormComponent = ({ movieId }: {movieId: Number}) => {
   const [showtimeData, setShowtimeData] = useState({ movieId: movieId, hallId: '', showDate: '', showTime: '', price: 0 });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const AddShowtimeFormComponent = ({ movieId }: {movieId: String}) => {
       toast.error('Failed to add showtime');
     } finally {
       setLoading(false);
-      setShowtimeData({ movieId: '', hallId: '', showDate: '', showTime: '', price: 0 });
+      setShowtimeData({ movieId: movieId, hallId: '', showDate: '', showTime: '', price: 0 });
     }
   }
 

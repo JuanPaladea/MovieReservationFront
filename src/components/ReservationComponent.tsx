@@ -9,6 +9,9 @@ const ReservationComponent = ( { reservation }: any) => {
         <div className="flex flex-wrap -m-2">
           <div className="p-2 lg:w-1/3 md:w-1/2 w-full mx-auto">
             <div className="my-5 flex flex-col items-center text-center">
+              <img alt="team" className="flex-shrink-0 rounded-lg w-full object-cover object-center mb-4" src={reservation.thumbnails} />
+            </div>
+            <div className="my-5 flex flex-col items-center text-center">
               <div className="flex-grow">
                 <h2 className="text-gray-900 text-lg title-font font-medium mb-3">Title</h2>
                 <p className="leading-relaxed text-base">{reservation.title}</p>
@@ -17,7 +20,7 @@ const ReservationComponent = ( { reservation }: any) => {
             <div className="my-5 flex flex-col items-center text-center">
               <div className="flex-grow">
                 <h2 className="text-gray-900 text-lg title-font font-medium mb-3">Show Date</h2>
-                <p className="leading-relaxed text-base">{reservation.show_date}</p>
+                <p className="leading-relaxed text-base">{new Date(reservation.show_date).toLocaleDateString('en-GB')}</p>
               </div>
             </div>
             <div className="my-5 flex flex-col items-center text-center">
@@ -47,7 +50,7 @@ const ReservationComponent = ( { reservation }: any) => {
             <div className="my-5 flex flex-col items-center text-center">
               <div className="flex-grow">
                 <h2 className="text-gray-900 text-lg title-font font-medium mb-3">Reservation Date</h2>
-                <p className="leading-relaxed text-base">{reservation.reservation_date}</p>
+                <p className="leading-relaxed text-base">{new Date(reservation.reservation_date).toLocaleDateString('en-GB')}</p>
               </div>
             </div>
             <div className="my-5 flex flex-col items-center text-center">
